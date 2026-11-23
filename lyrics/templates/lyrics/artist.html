@@ -1,0 +1,14 @@
+{% extends 'lyrics/base.html' %}
+
+{% block content %}
+  <p><strong>{{artist.name}}</strong></p>
+  <ul>
+    {% for lyric in lyrics %}
+      <li> <a href="{% url 'lyrics:lyric' lyric.id %}">{{ lyric.title }}</a></li>
+    {% empty %}
+      <li>Brak tekstów piosenek...</li>
+    {% endfor %}
+    <p><a href="{% url 'lyrics:add_lyrics' artist.id %}">Dodaj tekst</a></p>
+  </ul>
+  
+{% endblock content %}

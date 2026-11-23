@@ -1,0 +1,14 @@
+{% extends 'lyrics/base.html' %}
+
+{% block page_header %}
+  <div class="p-3 mb-4 bg-light border rounded-3">
+    <div class="container-fluid py-6" >
+      <h1 class="display-3">Załóż konto aby dodawać teksty piosenek i swoje tłumaczenia!</h1>
+
+      <p class="lead">~~~~ there's a great poet in you too ~~~~ </p>
+      <a class="btn btn-primary btn-lg mt-1" href="{% url 'accounts:register' %}">
+        Zarejestruj konto &raquo;
+      </a>
+    </div> 
+  </div>
+{% endblock page_header %}

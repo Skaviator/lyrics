@@ -1,0 +1,19 @@
+{% extends 'lyrics/base.html' %}
+
+{% block page_header %}
+  <h2>Wykonawcy</h2>
+{% endblock page_header %}
+
+{% block content %}
+  <ul class="list-group border-bottom pb-0 mb-0">
+    {% for artist in artists %}
+      <li class="list-group-item border-0" >
+        <a href="{% url 'lyrics:artist' artist.id %}">{{ artist.name }}</a>
+      </li>
+    {% empty %}
+      <li class="list-group-item border-0">Brak wykonawców...</li>
+    {% endfor %}
+  </ul>
+  <p><a href="{% url 'lyrics:add_artist' %}">Dodaj wykonawcę</a></p>
+  
+{% endblock content %}

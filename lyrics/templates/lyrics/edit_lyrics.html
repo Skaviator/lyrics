@@ -1,0 +1,10 @@
+{% extends 'lyrics/base.html' %}
+
+{% block content %}
+    <form action="{% url 'lyrics:edit_lyrics' lyric.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_div }}
+    <p><button name="submit">Zapisz zmiany</button></p>
+  </form>
+
+{% endblock content %}

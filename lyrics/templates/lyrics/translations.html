@@ -1,0 +1,13 @@
+{% extends 'lyrics/base.html' %}
+
+{% block content %}
+  <p>Tłumaczenia:</p>
+  <ul>
+    {% for t in translations %}
+      <li>{{t.lyrics.title}} - {{t.lyrics.artist}} : {{ t.author }}</a></li>
+    {% empty %}
+      <li>Brak tłumaczeń...</li>
+    {% endfor %}
+  </ul>
+  
+{% endblock content %}

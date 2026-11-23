@@ -1,0 +1,10 @@
+{% extends 'lyrics/base.html' %}
+
+{% block content %}
+    <form action="{% url 'lyrics:add_lyrics' artist.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_div }}
+    <p><button name="submit">Dodaj tekst piosenki</button></p>
+  </form>
+
+{% endblock content %}

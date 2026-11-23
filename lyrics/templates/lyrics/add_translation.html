@@ -1,0 +1,41 @@
+{% extends 'lyrics/base.html' %}
+
+{% block content %}
+  <div class="flex-kolumny">
+    <div class="lewa">
+      <h2>{{lyric.title}} - {{lyric.artist}}</h2>
+      {{ lyric.text|linebreaks }}
+
+    </div>
+    <div class="prawa">
+      <h2>Twoje tłumaczenie:</h2>
+      <form action="{% url 'lyrics:add_translation' lyric.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <p><button name="submit">Dodaj tłumaczenie</button></p>
+      </form>
+    </div>
+  </div>
+
+<style>
+.flex-kolumny {
+  display: flex;
+  gap: 20px;
+}
+
+.lewa {
+  flex: 1;
+}
+
+.prawa {
+  flex: 2;
+}
+
+@media (max-width: 768px) {
+  .flex-kolumny {
+    flex-direction: column;
+  }
+}
+</style>
+
+{% endblock content %}

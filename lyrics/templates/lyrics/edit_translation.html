@@ -1,0 +1,42 @@
+{% extends 'lyrics/base.html' %}
+
+{% block content %}
+  <div class="flex-kolumny">
+    <div class="lewa">
+      <p>{{translation.lyrics.artist}}</p>
+      <p><strong>{{translation.lyrics.title}}</strong></p>
+      {{ translation.lyrics.text|linebreaks }}
+
+    </div>
+    <div class="prawa">
+      <p>tłum. {{translation.author}}</p>
+      <form action="{% url 'lyrics:edit_translation' translation.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <p></p><button name="submit">zapisz zmiany</button><p></p>
+      </form>
+    </div>
+  </div>
+
+<style>
+  .flex-kolumny {
+    display: flex;
+    gap: 20px;
+  }
+
+  .lewa {
+    flex: 1;
+  }
+
+  .prawa {
+    flex: 2;
+  }
+
+  @media (max-width: 768px) {
+    .flex-kolumny {
+      flex-direction: column;
+    }
+  }
+</style>
+
+{% endblock content %}
