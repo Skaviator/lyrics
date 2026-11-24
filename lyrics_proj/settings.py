@@ -136,27 +136,5 @@ LOGOUT_REDIRECT_URL = 'lyrics:index'
 LOGIN_URL = 'accounts:login'
 
 # ustawieni Platform.sh
-from platformshconfig import Config
 
-config = Config()
-
-if config.is_valid_platform():
-    ALLOWED_HOSTS.append('.upsun.site')
-
-    if config.appDir:
-        STATIC_ROOT = Path(config.appDir) / 'static'
-    if config.projectEntropy:
-        SECRET_KEY = config.projectEntropy
-    if not config.in_build():
-        db_settings = config.credentials('database')
-        DATABASES = {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': db_settings['path'],
-            'USER': db_settings['username'],
-            'PASSWORD': db_settings['password'],
-            'HOST': db_settings['host'],
-            'PORT': db_settings['port'],
-        }
-
-
-from .settings_psh import *
+#from .settings_psh import *
