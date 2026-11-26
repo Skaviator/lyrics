@@ -1,0 +1,48 @@
+{% extends 'lyrics/base.html' %}
+
+{% block content %}
+  <div class="flex-kolumny">
+    <div class="lewa">
+      <p>{{lyric.artist.name}}</p>
+      <p><strong>{{lyric.title}}</strong></p>
+      <p>{{lyric.text|linebreaks}}</p>
+      <p><a href="{% url 'lyrics:edit_lyrics' lyric.id %}">EDIT</a></p> 
+    </div>
+    <div class="prawa">
+      <p><strong>Tłumaczenia:</strong></p>
+      <ul>
+      {% for translation in translations %}
+        <div class="card mb-3">  
+          <li><a href="{% url 'lyrics:translation' translation.id %}">{{ translation.author }}</a></li>
+        </div>
+      {% empty %}
+        <li>Brak tłumaczeń...</li>
+      {% endfor %}
+      </ul>
+      <p><a href="{% url 'lyrics:add_translation' lyric.id %}">Dodaj tłumaczenie</a></p>
+    </div>
+  </div>
+ 
+<style>
+.flex-kolumny {
+  display: flex;
+  gap: 20px;
+}
+
+.lewa {
+  flex: 1;
+}
+
+.prawa {
+  flex: 2;
+}
+
+@media (max-width: 768px) {
+  .flex-kolumny {
+    flex-direction: column;
+  }
+}
+</style>  
+
+
+{% endblock content %}

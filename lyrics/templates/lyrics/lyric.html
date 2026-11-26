@@ -1,14 +1,12 @@
-{% extends 'lyrics/base.html' %}
+{% extends 'lyrics/columns.html' %}
 
-{% block content %}
-  <div class="flex-kolumny">
-    <div class="lewa">
+  {% block left_column %}
       <p>{{lyric.artist.name}}</p>
       <p><strong>{{lyric.title}}</strong></p>
       <p>{{lyric.text|linebreaks}}</p>
       <p><a href="{% url 'lyrics:edit_lyrics' lyric.id %}">EDIT</a></p> 
-    </div>
-    <div class="prawa">
+  {% endblock left_column %}
+  {% block right_column %}
       <p><strong>Tłumaczenia:</strong></p>
       <ul>
       {% for translation in translations %}
@@ -20,29 +18,5 @@
       {% endfor %}
       </ul>
       <p><a href="{% url 'lyrics:add_translation' lyric.id %}">Dodaj tłumaczenie</a></p>
-    </div>
-  </div>
+{% endblock right_column %}
  
-<style>
-.flex-kolumny {
-  display: flex;
-  gap: 20px;
-}
-
-.lewa {
-  flex: 1;
-}
-
-.prawa {
-  flex: 2;
-}
-
-@media (max-width: 768px) {
-  .flex-kolumny {
-    flex-direction: column;
-  }
-}
-</style>  
-
-
-{% endblock content %}

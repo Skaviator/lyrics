@@ -69,21 +69,23 @@ def add_lyrics(request, artist_id):
 def edit_lyrics(request, lyric_id):
 
     if User.is_staff:
-            raise Http404
     
-    lyric = Lyrics.objects.get(id=lyric_id)
-    artist = lyric.artist
+        lyric = Lyrics.objects.get(id=lyric_id)
+        artist = lyric.artist
 
-    if request.method != 'POST':
-        form = AddLyricsForm(instance=lyric)
+        if request.method != 'POST':
+            form = AddLyricsForm(instance=lyric)
+        else:
+            form = AddLyricsForm(instance=lyric, data=request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('lyrics:lyric', lyric_id=lyric_id)
+
+        context = {'lyric': lyric, 'artist':artist, 'form':form}
+        return render(request, 'lyrics/edit_lyrics.html', context)
+    
     else:
-        form = AddLyricsForm(instance=lyric, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('lyrics:lyric', lyric_id=lyric_id)
-
-    context = {'lyric': lyric, 'artist':artist, 'form':form}
-    return render(request, 'lyrics/edit_lyrics.html', context)
+        raise Http404("Tylko admin może edytować teksty piosenek!")
 
 @login_required
 def add_translation(request, lyric_id):
@@ -110,7 +112,7 @@ def edit_translation(request, translation_id):
     translation = Translation.objects.get(id=translation_id)
 
     if translation.author != request.user:
-        raise Http404
+        raise Http404("Tylko autor może to zmienić!")
 
     if request.method != 'POST':
         form = AddTranslationForm(instance=translation)
